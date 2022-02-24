@@ -1,20 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { fetchUser } from '../../fetchData'
+import { useDispatch } from "react-redux";
+import { SIGN_IN_ACTION } from '../ReduxStore/Store';
+import { useSelector } from 'react-redux'
+import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
+import { useNavigate } from 'react-router-dom';
 
 function Signin() {
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.user?.user)
+
+    let navigate = useNavigate()
 
     function handleLogin(e){
         e.preventDefault()
-        console.log('boom')
+        fetchUser()
+            .then(data => {
+                dispatch({
+                    type: SIGN_IN_ACTION,
+                    payload: data
+                })
+                navigate('/')
+            })
+            .catch(e => console.log(e.message))
     }
+    
+    useEffect(()=> {
+        if(user){
+            navigate('/')
+        }
+    }, [])
 
     return (
-        <div>
-            <form onSubmit={handleLogin}  style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '20%', margin: '5px auto'}}>
-                <input style={{margin: '5px'}} type="text" value='fakeuser@mail.com' onChange={(e)=> console.log(e.target.value)}/>
-                <input style={{margin: '5px'}} type="password" value='12345678' onChange={(e)=> console.log(e.target.value)}/>
-                <button style={{margin: '5px auto', width: '50%'}}>Login</button>
-            </form>
-        </div>
+            <div>
+                <form onSubmit={handleLogin}  style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', width: '20%', margin: '5px auto'}}>
+                    <input style={{margin: '5px'}} type="text" value='fakeuser@mail.com' onChange={(e)=> console.log(e.target.value)}/>
+                    <input style={{margin: '5px'}} type="password" value='12345678' onChange={(e)=> console.log(e.target.value)}/>
+                    <button style={{margin: '5px auto', width: '50%'}}>Login</button>
+                </form>
+            <button onClick={() => console.log((window.localStorage.getItem('applicationState')))}>log</button>
+            </div>
     )
 }
 
