@@ -12,14 +12,17 @@ function Home() {
     const [inputText, setInputText] = useState('')
 
     function handleSubmit(){
-        dispatch({
-            type: TWEET,
-            payload: {
-                content: inputText,
-                user : user.username
-            }
-        })
-        setInputText('')
+        if(inputText > 0){
+            dispatch({
+                type: TWEET,
+                payload: {
+                    content: inputText,
+                    user : user.username
+                }
+            })
+            setInputText('')
+        }
+        
     }
 
     function resetAll(){

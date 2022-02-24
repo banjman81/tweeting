@@ -1,7 +1,7 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import store from './components/ReduxStore/Store';
 import Home from './components/pages/Home';

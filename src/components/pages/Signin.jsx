@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { fetchUser } from '../../fetchData'
 import { useDispatch } from "react-redux";
 import { SIGN_IN_ACTION } from '../ReduxStore/Store';
-import { useSelector } from 'react-redux'
-import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
 import { useNavigate } from 'react-router-dom';
 
 function Signin() {
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user?.user)
 
     let navigate = useNavigate()
 
@@ -24,12 +21,6 @@ function Signin() {
             })
             .catch(e => console.log(e.message))
     }
-    
-    useEffect(()=> {
-        if(user){
-            navigate('/')
-        }
-    }, [])
 
     return (
             <div>
