@@ -12,7 +12,7 @@ function Home() {
     const [inputText, setInputText] = useState('')
 
     function handleSubmit(){
-        if(inputText > 0){
+        if(inputText.length > 0){
             dispatch({
                 type: TWEET,
                 payload: {
