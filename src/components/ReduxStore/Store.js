@@ -4,10 +4,11 @@ export const SIGN_IN_ACTION = 'signIn';
 export const SIGN_OUT_ACTION = 'signOut';
 export const TWEET = 'tweet';
 
-// const initialUser = JSON.parse(window.localStorage.getItem('applicationState')) || null
+const initialUser = JSON.parse(window.localStorage.getItem('applicationState'))?.user || null
+const initialTweetState =  JSON.parse(window.localStorage.getItem('applicationState'))?.tweets || [];
 
 
-const userReducer = (state = null, action) => {
+const userReducer = (state = initialUser, action) => {
     switch(action.type){
         case SIGN_IN_ACTION:
             return action.payload
@@ -18,13 +19,13 @@ const userReducer = (state = null, action) => {
     }
 }
 
-const tweetReducer = (state = [], action) => {
+const tweetReducer = (state = initialTweetState, action) => {
     
     switch(action.type){
         case TWEET:
             return [...state, action.payload]
         default:
-            return JSON.parse(window.localStorage.getItem('applicationState'))?.tweets || state
+            return state
     }
 }
 
